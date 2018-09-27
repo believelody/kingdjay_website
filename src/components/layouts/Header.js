@@ -1,25 +1,28 @@
-import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react'
+import React, { Fragment } from 'react';
+import { HeaderDesktop, HeaderMobile } from '../Export';
 
-class Header extends Component {
+import './Layout.css'
 
-  render() {
-    return (
-      <header>
-        <Menu right>
-          <Menu.Item header>I am KingDjay</Menu.Item>
-          <Menu.Menu position='right'>
-            <Menu.Item to='/' content='Accueil' link />
-            <Menu.Item to='/about' content='A propos de moi' link />
-            <Menu.Item to='/mix' content='Mes Mixs' link />
-            <Menu.Item to='/event' content='Evenements' link />
-            <Menu.Item to='/contact' content='Contact' link />
-          </Menu.Menu>
-        </Menu>
-      </header>
-    );
-  }
-
+const headerStyle = {
+  position: 'absolute',
+  top: 0,
+  width: '100%',
+  height: '70px',
+  zIndex: 1,
+  padding: '0 20px',
+  background: 'rgba(0, 0, 0, .4)',
+  borderRadius: '4px'
 }
+
+const Header = ({handleClick}) => (
+  <header style={headerStyle}>
+    {
+      window.screen.width >= 1024 && <HeaderDesktop />
+    }
+    {
+      window.screen.width < 1024 && <HeaderMobile handleClick={handleClick} />
+    }
+  </header>
+);
 
 export default Header;

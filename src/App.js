@@ -2,12 +2,29 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 
-import { Main, Header, Footer } from './components/Export';
+import { HeaderDesktop, HeaderMobile, Desktop, Mobile } from './components/Export';
 
 import './App.css';
 
+const headerStyle = {
+  position: 'absolute',
+  top: 0,
+  width: '100%',
+  height: '70px',
+  zIndex: 1,
+  padding: '0 20px',
+  background: 'rgba(0, 0, 0, .4)',
+  borderRadius: '4px'
+}
+
 class App extends Component {
+  state = {visible: false};
+
+
+  handleButtonClick = visible => this.setState({ visible });
+
   render() {
+    const { visible } = this.state;
     return (
       <BrowserRouter>
         <Fragment>
@@ -25,9 +42,12 @@ class App extends Component {
             ]}
           />
           <div className="app">
-            <Header />
-            <Main />
-            <Footer />
+            {
+              window.screen.width >= 1024 && <Desktop />
+            }
+            {
+              window.screen.width < 1024 && <Mobile handleClick={this.handleButtonClick} visible={visible} />
+            }
           </div>
         </Fragment>
       </BrowserRouter>
