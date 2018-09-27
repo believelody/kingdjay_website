@@ -3,14 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { Sidebar, Menu, Segment } from 'semantic-ui-react';
 
 const SideNav = ({visible, handleClick, children}) => (
-  <Sidebar.Pushable as={Segment} className='header'>
+  <Sidebar.Pushable as={Segment}>
     <Sidebar
       as={Menu}
       animation='overlay'
       onHide={() => handleClick(false)}
       vertical
       visible={visible}
-      width='thin'
+      width='wide'
     >
       <Menu.Item as={NavLink} onClick={() => handleClick(false)} exact to='/'>
         Accueil

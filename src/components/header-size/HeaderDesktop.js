@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react'
 
 const HeaderDesktop = ({}) =>
-<header className='header'>
   <Menu style={{background: 'transparent', height: '100%', fontSize: '1.2em'}} secondary inverted>
-    <Menu.Item header>I am KingDjay</Menu.Item>
-    <Menu.Menu position='right' style={{border: '3px solid blue'}}>
+    <Menu.Item content='I am KingDjay' header/>
+
+    <Menu.Menu position='right'>
       <Menu.Item as={NavLink} exact to='/'>
         <b>Accueil</b>
       </Menu.Item>
@@ -24,6 +24,5 @@ const HeaderDesktop = ({}) =>
       </Menu.Item>
     </Menu.Menu>
   </Menu>
-</header>
 
 export default HeaderDesktop;

@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import { Main, Footer, HeaderDesktop } from '../Export';
+import { Main, Footer, Header } from '../Export';
 
 const Desktop = ({}) => (
   <Fragment>
-    <HeaderDesktop />
+    <Header />
     <Main />
     <Footer />
   </Fragment>

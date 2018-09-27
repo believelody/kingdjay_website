@@ -6,7 +6,7 @@ import './Layout.css'
 const headerStyle = {
   position: 'absolute',
   top: 0,
-  width: '100%',
+  width: '500px',
   height: '70px',
   zIndex: 1,
   padding: '0 20px',
@@ -15,14 +15,14 @@ const headerStyle = {
 }
 
 const Header = ({handleClick}) => (
-  <header style={headerStyle}>
+  <div className='header-style'>
     {
       window.screen.width >= 1024 && <HeaderDesktop />
     }
     {
       window.screen.width < 1024 && <HeaderMobile handleClick={handleClick} />
     }
-  </header>
+  </div>
 );
 
 export default Header;

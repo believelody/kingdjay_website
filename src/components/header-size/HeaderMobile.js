@@ -1,10 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 
 const HeaderMobile = ({handleClick}) =>
-<header className='header'>
-  <Button onClick={() => handleClick(true)}>MENU</Button>
-</header>
+  <Button className='header-mobile-btn' color='grey' inverted onClick={() => handleClick(true)} icon><Icon name='bars' /></Button>
 
 export default HeaderMobile;
