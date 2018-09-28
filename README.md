@@ -5,7 +5,7 @@
     - Mariage
     - Anniversaire
     - Animation soirée
-    - Prêt de matériel
+    - Location matériel
   - Témoignages
 - About
   - Mon équipe

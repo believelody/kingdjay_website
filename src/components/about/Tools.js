@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Segment, Item, Divider, Header } from 'semantic-ui-react';
 
 const description = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut metus nec tellus congue imperdiet non molestie diam. Donec posuere et ipsum vulputate consequat. Praesent egestas semper sollicitudin. Cras elit lacus, accumsan ut eros vitae, fringilla semper est. Quisque rutrum consequat lectus commodo accumsan. Nulla at interdum erat. Donec dapibus rutrum vestibulum. Proin sed urna at dolor scelerisque placerat.
-In ultricies blandit pretium. Nullam tempor varius nisl, vel cursus odio tempor eget. Integer viverra rhoncus rhoncus. Aenean at ultrices metus. Donec vel eros ac quam sodales ultrices in nec erat. Vestibulum euismod quis arcu at congue. Vestibulum tristique tincidunt quam, in tincidunt nisl gravida eu. Donec mi est, sollicitudin sed risus sed, tempus tristique nisi. Suspendisse sed tellus a eros molestie gravida. Aenean vel elit non diam blandit fermentum eu eu nulla. Aliquam consectetur lacus eu lorem aliquet, sit amet aliquet tellus gravida. Duis pellentesque justo at dui euismod, quis viverra nunc interdum. Nam enim ex, aliquet eu urna in, fringilla porttitor ligula.`;
+In ultricies blandit pretium. Nullam tempor varius nisl, vel cursus odio tempor eget. Integer viverra rhoncus rhoncus. Aenean at ultrices metus. Donec vel eros ac quam sodales ultrices in nec erat. Vestibulum euismod quis arcu at congue. Vestibulum tristique tincidunt quam, in tincidunt nisl gravida eu. Donec mi est, sollicitudin sed risus sed, tempus tristique nisi.`;
 
 class Tools extends Component {
 
@@ -24,7 +24,7 @@ class Tools extends Component {
                   <Item.Description>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut metus nec tellus congue imperdiet non molestie diam. Donec posuere et ipsum vulputate consequat. Praesent egestas semper sollicitudin. Cras elit lacus, accumsan ut eros vitae, fringilla semper est. Quisque rutrum consequat lectus commodo accumsan. Nulla at interdum erat. Donec dapibus rutrum vestibulum. Proin sed urna at dolor scelerisque placerat.
-                      In ultricies blandit pretium. Nullam tempor varius nisl, vel cursus odio tempor eget. Integer viverra rhoncus rhoncus. Aenean at ultrices metus. Donec vel eros ac quam sodales ultrices in nec erat. Vestibulum euismod quis arcu at congue. Vestibulum tristique tincidunt quam, in tincidunt nisl gravida eu. Donec mi est, sollicitudin sed risus sed, tempus tristique nisi. Suspendisse sed tellus a eros molestie gravida. Aenean vel elit non diam blandit fermentum eu eu nulla. Aliquam consectetur lacus eu lorem aliquet, sit amet aliquet tellus gravida. Duis pellentesque justo at dui euismod, quis viverra nunc interdum. Nam enim ex, aliquet eu urna in, fringilla porttitor ligula.
+                      In ultricies blandit pretium. Nullam tempor varius nisl, vel cursus odio tempor eget. Integer viverra rhoncus rhoncus. Aenean at ultrices metus. Donec vel eros ac quam sodales ultrices in nec erat. Vestibulum euismod quis arcu at congue.
                     </p>
                   </Item.Description>
                 </Item.Content>
