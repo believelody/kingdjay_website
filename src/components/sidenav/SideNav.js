@@ -10,7 +10,7 @@ const SideNav = ({visible, handleClick, children}) => (
       onHide={() => handleClick(false)}
       vertical
       visible={visible}
-      width='wide'
+      width='thin'
     >
       <Menu.Item as={NavLink} onClick={() => handleClick(false)} exact to='/'>
         Accueil
