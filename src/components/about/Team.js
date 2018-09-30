@@ -7,12 +7,12 @@ class Team extends Component {
     return (
       <Grid.Row>
         <Grid.Column>
-          <Segment>
+          <Segment raised>
             <Header textAlign='center' size='huge'>Mon équipe</Header>
           </Segment>
         </Grid.Column>
         <Grid.Column className='team-item'>
-          <Segment className='team-segment'>
+          <Segment raised className='team-segment'>
             {
               window.screen.width >= 1024 && <Image floated='left' src='http://www.phonographecorp.com/wp-content/uploads/2013/06/DJ-EZ_0.jpg' size='medium' rounded />
             }
@@ -30,7 +30,7 @@ class Team extends Component {
         </Grid.Column>
 
         <Grid.Column className='team-item'>
-          <Segment className='team-segment'>
+          <Segment raised className='team-segment'>
             {
               window.screen.width >= 1024 && <Image src='https://2ch.hk/b/src/181576108/15346026364910.jpg' size='medium' rounded floated='right' />
             }
