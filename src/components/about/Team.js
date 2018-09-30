@@ -12,7 +12,7 @@ class Team extends Component {
           </Segment>
         </Grid.Column>
         <Grid.Column className='team-item'>
-          <Segment style={{color: 'black'}}>
+          <Segment className='team-segment'>
             {
               window.screen.width >= 1024 && <Image floated='left' src='http://www.phonographecorp.com/wp-content/uploads/2013/06/DJ-EZ_0.jpg' size='medium' rounded />
             }
@@ -22,7 +22,7 @@ class Team extends Component {
             <Divider horizontal>
               <Header size='large' textAlign='center'>KingDjay</Header>
             </Divider>
-            <Header size='medium'>
+            <Header size='small'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut metus nec tellus congue imperdiet non molestie diam. Donec posuere et ipsum vulputate consequat. Praesent egestas semper sollicitudin. Cras elit lacus, accumsan ut eros vitae, fringilla semper est. Quisque rutrum consequat lectus commodo accumsan. Nulla at interdum erat. Donec dapibus rutrum vestibulum. Proin sed urna at dolor scelerisque placerat.
               In ultricies blandit pretium. Nullam tempor varius nisl, vel cursus odio tempor eget. Integer viverra rhoncus rhoncus. Aenean at ultrices metus. Donec vel eros ac quam sodales ultrices in nec erat.
             </Header>
@@ -30,7 +30,7 @@ class Team extends Component {
         </Grid.Column>
 
         <Grid.Column className='team-item'>
-          <Segment style={{color: 'black'}}>
+          <Segment className='team-segment'>
             {
               window.screen.width >= 1024 && <Image src='https://2ch.hk/b/src/181576108/15346026364910.jpg' size='medium' rounded floated='right' />
             }

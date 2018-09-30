@@ -15,15 +15,22 @@ const MainStyle = styled.main`
 `;
 
 class Main extends React.Component {
+  state = {
+    image: ''
+  };
+
+  setBackgroundImage = image => this.setState({image});
+
   render() {
+    const { image } = this.state;
     return (
-      <MainStyle background='http://www.desktop-screens.com/data/out/33/2773551-dj-wallpapers.jpg'>
+      <MainStyle background={image}>
         <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/about' component={About} />
-          <Route exact path='/mix' component={Mixes} />
-          <Route exact path='/event' component={Events} />
-          <Route exact path='/contact' component={Contact} />
+          <Route exact path='/' render={() => <Home setBackgroundImage={this.setBackgroundImage} />} />
+          <Route exact path='/about' render={() => <About setBackgroundImage={this.setBackgroundImage} />} />
+          <Route exact path='/mix' render={() => <Mixes setBackgroundImage={this.setBackgroundImage} />} />
+          <Route exact path='/event' render={() => <Events setBackgroundImage={this.setBackgroundImage} />} />
+          <Route exact path='/contact' render={() => <Contact setBackgroundImage={this.setBackgroundImage} />} />
         </Switch>
       </MainStyle>
     )

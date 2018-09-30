@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 
 class Home extends Component {
+  componentDidMount() {
+    this.props.setBackgroundImage('https://www.studio-m.fr/sites/default/files/2017-12/formation-dj_0.jpg');
+  }
 
   render() {
     return (
