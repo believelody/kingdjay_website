@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 
 import { Desktop, Mobile } from './components/Export';
 
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './App.css';
 
 class App extends Component {
