@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
 
 const HeaderMobile = ({handleClick}) =>

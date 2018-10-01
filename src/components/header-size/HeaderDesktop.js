@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react'
 
-const HeaderDesktop = ({}) =>
+const HeaderDesktop = () =>
   <Menu style={{background: 'transparent', height: '100%', fontSize: '1.2em'}} secondary inverted>
     <Menu.Item content='I am KingDjay' header/>
 

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Main, Footer, Header } from '../Export';
 
-const Desktop = ({}) => (
+const Desktop = () => (
   <Fragment>
     <Header />
     <Main />

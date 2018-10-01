@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Sidebar } from 'semantic-ui-react';
 import { Main, Footer, SideNav, Header } from '../Export';
 
