@@ -35,11 +35,12 @@ class Contact extends Component {
               <Form.Field width={8}>
                 <label>Date</label>
                 <DateInput
-                name="date"
-                placeholder="Date"
-                value={this.state.date}
-                iconPosition="left"
-                onChange={this.handleChange}
+                  name="date"
+                  placeholder="Date"
+                  value={this.state.date}
+                  iconPosition="left"
+                  onChange={this.handleChange}
+                  mobile-no-keyboard="true"
                 />
               </Form.Field>
             </Form.Group>
