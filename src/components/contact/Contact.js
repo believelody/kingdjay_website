@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Form, Button, Header, Input, Select, TextArea, Segment, Label } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
+import ModernDatepicker from 'react-modern-datepicker';
+import moment from 'moment';
 
 const options = [
   { key: 'marriage', text: 'Marriage', value: 'marriage' },
@@ -13,13 +15,14 @@ class Contact extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: ''
+      date: moment()
     };
   }
 
   handleChange = (e, {name, value}) => this.setState({ [name]: value });
 
   render() {
+    const { date } = this.state;
     return (
       <Container>
         <Header size='large' textAlign='center' style={{color: 'white'}}>Contact</Header>
@@ -34,13 +37,12 @@ class Contact extends Component {
               <Form.Field width={8} required control={Select} label='Votre demande' options={options} placeholder='Votre demande' />
               <Form.Field width={8}>
                 <label>Date</label>
-                <DateInput
+                <ModernDatepicker
                   name="date"
-                  placeholder="Date"
-                  value={this.state.date}
-                  iconPosition="left"
+                  date={date}
+                  placeholder="Select a date"
+                  showBorder
                   onChange={this.handleChange}
-                  mobile-no-keyboard="true"
                 />
               </Form.Field>
             </Form.Group>
