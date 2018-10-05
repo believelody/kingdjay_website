@@ -13,6 +13,7 @@ import Mixes from './mix/Mixes';
 import MixItem from './mix/MixItem';
 import Contact from './contact/Contact';
 import SideNav from './sidenav/SideNav';
+import AudioPlayer from './audio/AudioPlayer';
 
 export {
   Desktop,
@@ -29,5 +30,6 @@ export {
   Events,
   EventItem,
   Contact,
-  SideNav
+  SideNav,
+  AudioPlayer
 }

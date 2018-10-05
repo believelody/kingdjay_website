@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Form, Button, Header, Input, Select, TextArea, Segment, Label } from 'semantic-ui-react';
-import { DateInput } from 'semantic-ui-calendar-react';
 import ModernDatepicker from 'react-modern-datepicker';
 import moment from 'moment';
 
