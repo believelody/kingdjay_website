@@ -13,7 +13,27 @@ const playlist = [
     src: "tracks/Falz-_-Soft Work.mp3",
     title: "Soft Work",
     artist: "Falz"
-  }
+  },
+  {
+    src: "tracks/All Of Me Kizomba.mp3",
+    title: "All Of Me Kizomba",
+    artist: "J. Legend Cover"
+  },
+  {
+    src: "tracks/Bisa-Kdei-Fire-ft-Efya.mp3",
+    title: "Fire",
+    artist: "Bisa Kdei ft Efya"
+  },
+  {
+    src: "tracks/Hello - Adele (Slow Gospel African version) by Am-Bess.mp3",
+    title: "Hello",
+    artist: "Am-Bess Adele Cover"
+  },
+  {
+    src: "tracks/Diamond Platnumz ft Rayvanny – Salome.mp3",
+    title: "Salome",
+    artist: "Diamond Platnumz ft Rayvanny"
+  },
 ];
 
 class Mixes extends Component {
@@ -30,7 +50,6 @@ class Mixes extends Component {
  }
 
   componentDidMount() {
-    // console.log(this.audio.duration);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -39,8 +58,15 @@ class Mixes extends Component {
     // }
   }
 
+  timer = () => this.setState({currentTime: this.audioElement.currentTime});
+
   selectTrackNumber = (trackId) => {
-    this.setState({currentTrackIndex:trackId, playing:true, player: true}, this.playAudio);
+    this.setState({currentTrackIndex:trackId, playing:true, player: true, currentTime: 0}, this.playAudio);
+  }
+
+  loadDuration = () => {
+    // console.log(this.audioElement.duration);
+    this.setState({duration: this.audioElement.duration});
   }
 
   playAudio = () => {
@@ -51,16 +77,18 @@ class Mixes extends Component {
     else {
       this.audioElement.load();
     }
-    console.log(this.audioElement.duration);
+
     this.audioElement.play();
   }
 
   pauseAudio = () => {
+    // clearInterval(this.state.interval);
     this.setState({ currentTime: this.audioElement.currentTime });
     this.audioElement.pause();
   }
 
   stopAudio = () => {
+    // clearInterval(this.state.interval);
     this.audioElement.currentTime = 0;
     this.audioElement.pause();
   }
@@ -82,7 +110,7 @@ class Mixes extends Component {
           if (currentIndex < 0) {
             return null;
           } else {
-            return { playing:true, paused: false, currentTrackIndex: currentIndex, player: true, currentTime: 0 };
+            return { playing:true, paused: false, currentTrackIndex: currentIndex, currentTime: 0 };
           }
         },this.playAudio);
         break;
@@ -92,9 +120,11 @@ class Mixes extends Component {
           if (currentIndex > playlist.length - 1) {
             return null;
           } else {
-            return { playing:true, paused: false, currentTrackIndex: currentIndex, player: true, currentTime: 0 };
+            return { playing:true, paused: false, currentTrackIndex: currentIndex, currentTime: 0 };
           }
         },this.playAudio);
+        break;
+      case "seek":
         break;
       default:
         break;
@@ -103,7 +133,7 @@ class Mixes extends Component {
 
   render() {
     const { player, currentTrackIndex, playing, currentTime, duration } = this.state;
-
+    // console.log(this.state.duration);
     return (
       <Container style={{position: 'relative'}}>
         <List animated divided verticalAlign='middle'>
@@ -129,7 +159,12 @@ class Mixes extends Component {
               handleClick={this.handleClick}
               current={playlist[currentTrackIndex]}
             />
-            <audio ref={audio => {this.audioElement = audio}} src={playlist[currentTrackIndex].src} />
+            <audio
+              ref={audio => {this.audioElement = audio}}
+              src={playlist[currentTrackIndex].src}
+              onLoadedMetadata={this.loadDuration}
+              onTimeUpdate={this.timer}
+            />
           </Fragment>
         }
       </Container>

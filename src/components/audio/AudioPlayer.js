@@ -26,7 +26,7 @@ class AudioPlayer extends Component {
     const { current, handleClick, playing, currentTime, duration } = this.props;
     return (
       <Segment className='player'>
-        <ProgressBar currentTime={2.20} duration={3.40} />
+        {currentTime > 0 && <ProgressBar handleSeek={handleClick} currentTime={currentTime} duration={duration} />}
         <Button.Group icon>
           <Backward handlePrev={handleClick} />
           <PlayPause playing={playing} handlePlayPause={handleClick} />
@@ -35,7 +35,7 @@ class AudioPlayer extends Component {
           <ShuffleRepeat handleClick={this.ShuffleRepeat} value={loop} />
         </Button.Group>
         <Content artist={current.artist} title={current.title} />
-        <Duration currentTime={2.20} duration={3.40} />
+        <Duration currentTime={currentTime} duration={duration} />
       </Segment>
     );
   }
