@@ -9,7 +9,7 @@ const MainStyle = styled.main`
   padding: 70px 0;
   top: 0;
   min-height: 100vh;
-  background-image: linear-gradient(rgba(0, 0, 255, 0.6), rgba(255, 255, 0, 0.6)), url(${props => props.background});
+  background-image: linear-gradient(to bottom right, rgba(0, 0, 255, 0.6), rgba(255, 255, 0, 0.6)), url(${props => props.background});
   background-attachment: fixed;
   background-size: cover;
 `;

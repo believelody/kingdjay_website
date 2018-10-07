@@ -1,11 +1,17 @@
 import React, { Fragment } from 'react';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Icon, Label } from 'semantic-ui-react';
 
 const ShuffleRepeat = ({handleClick, value}) => (
   <Fragment>
-    {(value === 'shuffle' || value=== '') && <Button onClick={() => handleClick('shuffle')} icon='shuffle' />}
-    {value === 'repeat' && <Button onClick={() => handleClick('repeat')} icon='repeat' />}
-    {value === 'repeat-one' && <Button onClick={() => handleClick('repeat-one')} icon='repeat' />}  
+    {value === 0 && <Button onClick={handleClick} icon='shuffle' />}
+    {value === 1 && <Button onClick={handleClick} color='green' icon='shuffle' />}
+    {value === 2 && <Button onClick={handleClick} color='green' icon='repeat' />}
+    {
+      value === 3 &&
+      <Button onClick={handleClick} color='green'>
+        <Label color='green' icon='repeat' content='1' />
+      </Button>
+    }
   </Fragment>
 );
 

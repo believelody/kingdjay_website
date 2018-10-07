@@ -15,7 +15,7 @@ class AudioPlayer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loop: '',
+      loop: 0,
       playing: false,
       paused: false,
       currentTime: 0,
@@ -35,7 +35,9 @@ class AudioPlayer extends Component {
 
   timer = () => this.setState({currentTime: this.audioElement.currentTime});
 
-  ShuffleRepeat = value => this.setState({ loop: value });
+  ShuffleRepeat = () => {
+    this.state.loop >= 3 ? this.setState({ loop: 0 }) : this.setState((state, props) => ({ loop: ++state.loop }));
+  }
 
   loadDuration = () => {
     // console.log(this.audioElement.duration);
