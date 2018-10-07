@@ -93,7 +93,12 @@ class Mixes extends Component {
     this.audioElement.pause();
   }
 
-  handleClick = (e, {id}) => {
+  handleSeek = value => {
+    // console.log(value);
+    this.audioElement.currentTime = value;
+  }
+
+  handleClick = (e, {id}, value = 0) => {
     switch (id) {
       case 'play':
         this.setState({currentTrackIndex: this.state.currentTrackIndex, playing:true, paused: false, player: true}, this.playAudio);
@@ -124,8 +129,6 @@ class Mixes extends Component {
           }
         },this.playAudio);
         break;
-      case "seek":
-        break;
       default:
         break;
     }
@@ -133,7 +136,7 @@ class Mixes extends Component {
 
   render() {
     const { player, currentTrackIndex, playing, currentTime, duration } = this.state;
-    // console.log(this.state.duration);
+    // console.log(this.state.currentTime);
     return (
       <Container style={{position: 'relative'}}>
         <List animated divided verticalAlign='middle'>
@@ -157,6 +160,7 @@ class Mixes extends Component {
               duration={duration}
               playing={playing}
               handleClick={this.handleClick}
+              handleSeek={this.handleSeek}
               current={playlist[currentTrackIndex]}
             />
             <audio

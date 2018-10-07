@@ -6,9 +6,13 @@
   display: flex;
   /* grid-template-columns: 1fr 3fr; */
   flex: auto;
+  flex-wrap: wrap;
   /* grid-column-gap: 1em; */
 }
 
 .progress {
-  height: 12px;
+  height: 5px;
+  width: 100%;
+  position: relative;
+  left: 0;
 }

@@ -23,10 +23,10 @@ class AudioPlayer extends Component {
 
   render() {
     const { loop } = this.state;
-    const { current, handleClick, playing, currentTime, duration } = this.props;
+    const { current, handleClick, handleSeek, playing, currentTime, duration } = this.props;
     return (
       <Segment className='player'>
-        {currentTime > 0 && <ProgressBar handleSeek={handleClick} currentTime={currentTime} duration={duration} />}
+        {currentTime > 0 && <ProgressBar handleSeek={handleSeek} currentTime={currentTime} duration={duration} />}
         <Button.Group icon>
           <Backward handlePrev={handleClick} />
           <PlayPause playing={playing} handlePlayPause={handleClick} />

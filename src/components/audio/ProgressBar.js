@@ -2,23 +2,40 @@ import React from 'react';
 import { Progress } from 'semantic-ui-react';
 
 class ProgressBar extends React.Component {
-  seekTime = e => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.currentTime
+    };
+  }
+
+  seekTime = (e) => {
     let progressElement = document.getElementById('seek');
-    console.log(progressElement.clientWidth);
+    let widthPlayer = progressElement.clientWidth;
+    let widthScreen = window.screen.width;
+    let playerStartLeftPosition = (widthScreen - widthPlayer) / 2;
+    let playerEndLeftPosition = playerStartLeftPosition + widthPlayer;
+    // console.log(widthPlayer, playerStartLeftPosition, playerEndLeftPosition);
+    if (e.clientX >= playerStartLeftPosition && e.clientX <= playerEndLeftPosition) {
+      let value = (e.clientX - playerStartLeftPosition);
+      let currentTime = value * this.props.duration / widthPlayer;
+      // console.log(currentTime);
+      this.setState((state, props) => ({value}), this.props.handleSeek(currentTime));
+    }
   }
 
   render() {
+    const { value } = this.state;
     const {currentTime, duration} = this.props;
+    // console.log(value);
     return (
       <Progress
         id='seek'
-        ref={progress => this.progressElement = progress}
         onClick={this.seekTime}
-        attached='top'
         className='progress'
         success
         active
-        size='small'
+        size='tiny'
         value={currentTime}
         total={duration}
       />
