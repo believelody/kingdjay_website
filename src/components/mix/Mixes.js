@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Container, List, Divider } from 'semantic-ui-react';
+import { Container, List, Divider, Segment, Label } from 'semantic-ui-react';
 import {AudioPlayer} from '../Export';
 import './Mixes.css';
 
@@ -45,15 +45,6 @@ class Mixes extends Component {
     };
  }
 
-  componentDidMount() {
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    // if (this.state.currentTrackIndex !== -1 && playlist[this.state.currentTrackIndex].src !== undefined) {
-    //   this.audioElement.load();
-    // }
-  }
-
   selectTrackNumber = (trackId) => {
     this.setState({currentTrackIndex:trackId, player: true});
   }
@@ -65,18 +56,31 @@ class Mixes extends Component {
     // console.log(currentTrackIndex);
     return (
       <Container style={{position: 'relative'}}>
-        <List animated divided verticalAlign='middle'>
-          {
-            playlist.map((track, i) =>
-              <List.Item
-                key={i}
-                header={track.title}
-                description={track.artist}
-                onClick={() => this.selectTrackNumber(i)}
-              />
-            )
-          }
-        </List>
+        <Segment>
+          <List animated divided verticalAlign='middle'>
+            {
+              playlist.map((track, i) =>
+                <List.Item
+                  key={i}
+                  className='item'
+                  onClick={() => this.selectTrackNumber(i)}
+                >
+                  <List.Content>
+                    <List.Header>
+                      {track.title}
+                    </List.Header>
+                    <List.Description>
+                      {track.artist}
+                      {
+                        currentTrackIndex === i && <Label style={{float: 'right', marginRight: 20}} color='violet' circular>playing...</Label>
+                      }
+                    </List.Description>
+                  </List.Content>
+                </List.Item>
+              )
+            }
+          </List>
+        </Segment>
         <Divider />
         {
           player &&
@@ -85,6 +89,7 @@ class Mixes extends Component {
             current={playlist[currentTrackIndex]}
             currentTrackIndex={currentTrackIndex}
             length={playlist.length}
+            player={player}
           />
         }
       </Container>

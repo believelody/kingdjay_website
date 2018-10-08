@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Button } from 'semantic-ui-react';
+import { Segment, Grid, Divider } from 'semantic-ui-react';
 import Backward from './Backward';
 import Content from './Content';
 import Duration from './Duration';
@@ -24,11 +24,11 @@ class AudioPlayer extends Component {
   }
 
   componentDidMount() {
-    this.setState({playing: true, paused: false, currentTime: 0}, this.playAudio);
+      this.setState({playing: true, paused: false, currentTime: 0}, this.playAudio);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.current !== -1) {
+    if (nextProps.currentTrackIndex !== -1 && nextProps.currentTrackIndex !== this.props.currentTrackIndex) {
       this.setState({playing: true, paused: false, currentTime: 0}, this.playAudio);
     }
   }
@@ -155,20 +155,35 @@ class AudioPlayer extends Component {
     const { current } = this.props;
     return (
       <Segment className='player'>
-        <ProgressBar
-          handleSeek={this.handleSeek}
-          currentTime={currentTime}
-          duration={duration}
-        />
-        <Button.Group icon>
-          <Backward handlePrev={this.handleClick} />
-          <PlayPause playing={playing} handlePlayPause={this.handleClick} />
-          <Stop handleStop={this.handleClick}p />
-          <Forward handleNext={this.handleClick} />
-          <ShuffleRepeat handleClick={this.ShuffleRepeat} value={loop} />
-        </Button.Group>
-        <Content artist={current ? current.artist : ''} title={current ? current.title : ''} />
-        <Duration currentTime={currentTime} duration={duration} />
+        <Grid padded='horizontally'>
+          <Grid.Row className='row'>
+            <Grid.Column computer={14} tablet={13} mobile={10}>
+              <ProgressBar
+              handleSeek={this.handleSeek}
+              currentTime={currentTime}
+              duration={duration}
+              />
+            </Grid.Column>
+            <Grid.Column textAlign='center' computer={2} tablet={3} mobile={6}>
+              <Duration currentTime={currentTime} duration={duration} />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row className='row' textAlign='center'>
+            <Grid.Column>
+              <Backward handlePrev={this.handleClick} />
+              <ShuffleRepeat handleClick={this.ShuffleRepeat} value={loop} />
+              <PlayPause playing={playing} handlePlayPause={this.handleClick} />
+              <Stop handleStop={this.handleClick}p />
+              <Forward handleNext={this.handleClick} />
+            </Grid.Column>
+          </Grid.Row>
+          <Divider />
+          <Grid.Row className='row' textAlign='center'>
+            <Grid.Column>
+              <Content artist={current ? current.artist : ''} title={current ? current.title : ''} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
         {
           current &&
           <audio
