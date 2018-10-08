@@ -39,13 +39,38 @@ class AudioPlayer extends Component {
     this.state.loop >= 3 ? this.setState({ loop: 0 }) : this.setState((state, props) => ({ loop: ++state.loop }));
   }
 
+  setShuffleRepeat = () => {
+    let value = this.state.loop;
+    let currentTrackIndex = this.props.currentTrackIndex;
+    switch (value) {
+      case 1:
+        this.props.changeIndex(Math.floor(Math.random() * this.props.length));
+        this.playAudio();
+        break;
+      case 2:
+        if (this.props.currentTrackIndex === this.props.length - 1) {
+          this.props.changeIndex(0);
+        }
+        else {
+          this.props.changeIndex(++currentTrackIndex);
+        }
+        this.playAudio();
+        break;
+      case 3:
+        this.playAudio();
+        break;
+      default:
+        break;
+    }
+  }
+
   loadDuration = () => {
     // console.log(this.audioElement.duration);
     this.setState({duration: this.audioElement.duration});
   }
 
   playAudio = () => {
-    console.log(this.props.current);
+    // console.log(this.props.current);
     if (this.props.current !== undefined) {
       if (this.state.currentTime > 0) {
         this.audioElement.currentTime = this.state.currentTime;
@@ -89,6 +114,9 @@ class AudioPlayer extends Component {
       case "prev":
         this.setState((state, props) => {
           let currentIndex = props.currentTrackIndex - 1;
+          if (state.loop === 1) {
+            currentIndex = Math.floor(Math.random() * props.length);
+          }
           if (currentIndex < 0) {
             return {currentTime : 0};
           } else {
@@ -100,8 +128,17 @@ class AudioPlayer extends Component {
       case "next":
         this.setState((state, props) => {
           let currentIndex = props.currentTrackIndex + 1;
+          if (state.loop === 1) {
+            currentIndex = Math.floor(Math.random() * props.length);
+          }
           if (currentIndex > this.props.length - 1) {
-            return {currentTime : 0};
+            if (this.state.loop === 2) {
+              this.props.changeIndex(0);
+              return {playing:true, paused: false, currentTime : 0};
+            }
+            else {
+              return {currentTime : 0};
+            }
           } else {
             this.props.changeIndex(currentIndex);
             return { playing:true, paused: false, currentTime: 0 };
@@ -139,6 +176,9 @@ class AudioPlayer extends Component {
             src={current.src}
             onLoadedMetadata={this.loadDuration}
             onTimeUpdate={this.timer}
+            onEnded={() =>{
+              setTimeout(this.setShuffleRepeat, 2000)
+            }}
           />
         }
       </Segment>
