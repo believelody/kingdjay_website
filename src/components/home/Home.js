@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import { Container, Image, Segment, Item, Header } from 'semantic-ui-react';
 import { Carousel } from 'react-responsive-carousel';
+
+import { homeLoad } from '../../actions/homeAction';
+
 import './Home.css';
 
 class Home extends Component {
   componentDidMount() {
+    this.props.homeLoad();
     this.props.setBackgroundImage('https://www.studio-m.fr/sites/default/files/2017-12/formation-dj_0.jpg');
   }
 
@@ -46,7 +52,7 @@ class Home extends Component {
             </Item>
           </Item.Group>
         </Segment>
-        <Segment>        
+        <Segment>
           <Item.Group>
             <Item>
               <Item.Image size='small' src='https://images.wisegeek.com/bride-and-groom.jpg' />
@@ -62,7 +68,6 @@ class Home extends Component {
       </Container>
     );
   }
-
 }
 
-export default Home;
+export default connect(null, {homeLoad})(Home);
