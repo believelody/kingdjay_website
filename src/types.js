@@ -1,0 +1,10 @@
+export const LOADING_HOME = 'LOADING_HOME';
+export const HOME_LOADED = 'HOME_LOADED';
+export const LOADING_ABOUT = 'LOADING_ABOUT';
+export const ABOUT_LOADED = 'ABOUT_LOADED';
+export const LOADING_MIX = 'LOADING_MIX';
+export const MIX_LOADED = 'MIX_LOADED';
+export const LOADING_EVENT = 'LOADING_EVENT';
+export const EVENT_LOADED = 'EVENT_LOADED';
+export const LOADING_CONTACT = 'LOADING_CONTACT';
+export const CONTACT_LOADED = 'CONTACT_LOADED';

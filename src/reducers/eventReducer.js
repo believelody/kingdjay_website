@@ -2,7 +2,7 @@ import * as types from '../types';
 
 const initialState = {
   loading: false,
-  home: {}
+  event: {}
 }
 
 export default (state = initialState, { type, payload}) => {
