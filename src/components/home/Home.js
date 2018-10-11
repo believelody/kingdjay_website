@@ -36,7 +36,7 @@ class Home extends Component {
           !loading && home !== null && home !== undefined &&
           <Fragment>
             {
-              home.carousel.length > 0 &&
+              home.carousel !== null && home.carousel !== undefined && home.carousel.length > 0 &&
               <Carousel
                 className='carousel'
                 infiniteLoop
@@ -59,7 +59,7 @@ class Home extends Component {
               <Header size='large' textAlign='center' content='Témoignanges' subheader='Ils nous ont fait confiance' />
             </Segment>
             {
-              home.testimony.length > 0 &&
+              home.testimony !== null && home.testimony !== undefined && home.testimony.length > 0 &&
               home.testimony.map((testimony, i) =>
                 <Segment key={i}>
                   <Item.Group>
