@@ -16,8 +16,8 @@ export const homeLoad = () => dispatch => {
   // Get entries by content type
   client.getEntries({ 'content_type': 'home' })
     .then(({items}) => {
-      console.log(items[0].fields);
-      // dispatch(homeLoadSuccess(items[0].fields));
+      // console.log(items[0].fields);
+      dispatch(homeLoadSuccess(items[0].fields));
     })
     .catch(err => {
       console.log(err);
