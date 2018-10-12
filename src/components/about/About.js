@@ -15,7 +15,7 @@ class About extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.about.about !== null && nextProps.about.about !== undefined && nextProps.about.about.background !== undefined) {
-      console.log(nextProps.about.about);
+      // console.log(nextProps.about.about);
       this.props.setBackgroundImage(nextProps.about.about.background.fields.file.url);
 
     }

@@ -8,9 +8,7 @@ import Footer from './layouts/Footer';
 import Home from './home/Home';
 import About from './about/About';
 import Events from './event/Events';
-import EventItem from './event/EventItem';
 import Mixes from './mix/Mixes';
-import MixItem from './mix/MixItem';
 import Contact from './contact/Contact';
 import SideNav from './sidenav/SideNav';
 import AudioPlayer from './audio/AudioPlayer';
@@ -26,9 +24,7 @@ export {
   Home,
   About,
   Mixes,
-  MixItem,
   Events,
-  EventItem,
   Contact,
   SideNav,
   AudioPlayer

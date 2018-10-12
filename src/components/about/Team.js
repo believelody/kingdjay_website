@@ -13,9 +13,9 @@ const Team = ({team}) => (
     {
       team.map((team, i) =>
         i%2 !== 0 ?
-        <TeamItem floated='right' team={team} />
+        <TeamItem key={i} floated='right' team={team} />
         :
-        <TeamItem floated='left' team={team} />
+        <TeamItem key={i} floated='left' team={team} />
       )
     }
   </Grid.Row>

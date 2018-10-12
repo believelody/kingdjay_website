@@ -16,7 +16,7 @@ class Home extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.home.home !== null && nextProps.home.home !== undefined && nextProps.home.home.background !== undefined) {
-      console.log(nextProps.home.home);
+      // console.log(nextProps.home.home);
       this.props.setBackgroundImage(nextProps.home.home.background.fields.file.url);
 
     }
