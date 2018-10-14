@@ -17,6 +17,7 @@
     "react-modern-datepicker": "^0.7.0",
     "react-modular-audio-player": "^1.1.1",
     "react-moment": "^0.7.9",
+    "react-range-progress": "^4.0.3",
     "react-redux": "^5.0.7",
     "react-responsive-carousel": "^3.1.42",
     "react-router-dom": "^4.3.1",

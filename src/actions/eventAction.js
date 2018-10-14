@@ -4,7 +4,7 @@ import client from '../contentfulCredentials';
 export const eventLoading = (isLoading = true) => ({
   type: types.LOADING_EVENT,
   payload: isLoading
-})
+});
 
 export const eventLoadSuccess = data => ({
   type: types.EVENT_LOADED_SUCCESS,

@@ -12,7 +12,7 @@ export const mixLoadSuccess = data => ({
 });
 
 export const mixLoad = () => dispatch => {
-  dispatch(eventLoading());
+  dispatch(mixLoading());
   // Get entries by content type
   client.getEntries({ 'content_type': 'mix' })
     .then(({items}) => {

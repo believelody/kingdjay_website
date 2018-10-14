@@ -1,44 +1,33 @@
 import React from 'react';
+import Range from 'react-range-progress';
 import { Progress } from 'semantic-ui-react';
 
 class ProgressBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: props.currentTime
-    };
-  }
-
-  seekTime = (e) => {
-    let progressElement = document.getElementById('seek');
-    let widthPlayer = progressElement.clientWidth;
-    let widthScreen = window.screen.width;
-    let playerStartLeftPosition = (widthScreen - widthPlayer) / 2;
-    let playerEndLeftPosition = playerStartLeftPosition + widthPlayer;
-    // console.log(widthPlayer, playerStartLeftPosition, playerEndLeftPosition);
-    if (e.clientX >= playerStartLeftPosition && e.clientX <= playerEndLeftPosition) {
-      let value = (e.clientX - playerStartLeftPosition);
-      let currentTime = value * this.props.duration / widthPlayer;
-      // console.log(currentTime);
-      this.setState((state, props) => ({value}), this.props.handleSeek(currentTime));
-    }
+  onRangeChanged = value => {
+    this.props.handleSeek(value);
   }
 
   render() {
-    const { value } = this.state;
-    const {currentTime, duration} = this.props;
-    // console.log(value);
     return (
-      <Progress
-        id='seek'
-        onClick={this.seekTime}
-        className='progress'
-        success
-        active
-        size='tiny'
-        value={currentTime}
-        total={duration}
-      />
+      <Range
+          value={this.props.value}
+          thumbSize={15}
+          fillColor={{
+            r: 20,
+            g: 150,
+            b: 100,
+            a: 0.75,
+          }}
+          trackColor={{
+            r: 10,
+            g: 10,
+            b: 0,
+            a: 0.5,
+          }}
+          height={5}
+          width="100%"
+          onChange={this.onRangeChanged}
+        />
     );
   }
 }

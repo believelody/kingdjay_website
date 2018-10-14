@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
-import { Segment, Grid, Divider } from 'semantic-ui-react';
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { selectTrack, playlistLoad } from '../../actions/playerAction';
+import { Segment, Grid, Divider, Dimmer, Loader } from 'semantic-ui-react';
 import Backward from './Backward';
 import Content from './Content';
 import Duration from './Duration';
@@ -28,31 +31,31 @@ class AudioPlayer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentTrackIndex !== -1 && nextProps.currentTrackIndex !== this.props.currentTrackIndex) {
+    if (nextProps.currentTrackIndex !== -1) {
       this.setState({playing: true, paused: false, currentTime: 0}, this.playAudio);
     }
   }
 
   timer = () => this.setState({currentTime: this.audioElement.currentTime});
 
-  ShuffleRepeat = () => {
+  shuffleRepeat = value => {
     this.state.loop >= 3 ? this.setState({ loop: 0 }) : this.setState((state, props) => ({ loop: ++state.loop }));
-  }
+  };
 
   setShuffleRepeat = () => {
     let value = this.state.loop;
-    let currentTrackIndex = this.props.currentTrackIndex;
+    let currentTrackIndex = this.props.player.currentTrackIndex;
     switch (value) {
       case 1:
-        this.props.changeIndex(Math.floor(Math.random() * this.props.length));
+        this.props.selectTrack(Math.floor(Math.random() * this.props.playerplaylist.length));
         this.playAudio();
         break;
       case 2:
-        if (this.props.currentTrackIndex === this.props.length - 1) {
-          this.props.changeIndex(0);
+        if (currentTrackIndex === this.props.playerplaylist.length - 1) {
+          this.props.selectTrack(0);
         }
         else {
-          this.props.changeIndex(++currentTrackIndex);
+          this.props.selectTrack(++currentTrackIndex);
         }
         this.playAudio();
         break;
@@ -65,13 +68,11 @@ class AudioPlayer extends Component {
   }
 
   loadDuration = () => {
-    // console.log(this.audioElement.duration);
     this.setState({duration: this.audioElement.duration});
   }
 
   playAudio = () => {
-    // console.log(this.props.current);
-    if (this.props.current !== undefined) {
+    if (this.props.player.playlist.length > 0 && this.props.player.playlist[this.props.player.currentTrackIndex] !== null && this.props.player.playlist[this.props.player.currentTrackIndex] !== undefined) {
       if (this.state.currentTime > 0) {
         this.audioElement.currentTime = this.state.currentTime;
       }
@@ -96,8 +97,7 @@ class AudioPlayer extends Component {
   }
 
   handleSeek = value => {
-    // console.log(value);
-    this.audioElement.currentTime = value;
+    this.audioElement.currentTime = value / 100 * this.audioElement.duration;
   }
 
   handleClick = (e, {id}, value = 0) => {
@@ -113,34 +113,34 @@ class AudioPlayer extends Component {
         break;
       case "prev":
         this.setState((state, props) => {
-          let currentIndex = props.currentTrackIndex - 1;
+          let currentIndex = props.player.currentTrackIndex - 1;
           if (state.loop === 1) {
-            currentIndex = Math.floor(Math.random() * props.length);
+            currentIndex = Math.floor(Math.random() * props.player.playlist.length);
           }
           if (currentIndex < 0) {
             return {currentTime : 0};
           } else {
-            this.props.changeIndex(currentIndex);
+            this.props.selectTrack(currentIndex);
             return { playing:true, paused: false, currentTime: 0 };
           }
         },this.playAudio);
         break;
       case "next":
         this.setState((state, props) => {
-          let currentIndex = props.currentTrackIndex + 1;
+          let currentIndex = props.player.currentTrackIndex + 1;
           if (state.loop === 1) {
-            currentIndex = Math.floor(Math.random() * props.length);
+            currentIndex = Math.floor(Math.random() * props.player.playlist.length);
           }
-          if (currentIndex > this.props.length - 1) {
-            if (this.state.loop === 2) {
-              this.props.changeIndex(0);
+          if (currentIndex > props.player.playlist.length - 1) {
+            if (this.state.loop === 2 || this.state.loop === 3) {
+              this.props.selectTrack(0);
               return {playing:true, paused: false, currentTime : 0};
             }
             else {
               return {currentTime : 0};
             }
           } else {
-            this.props.changeIndex(currentIndex);
+            this.props.selectTrack(currentIndex);
             return { playing:true, paused: false, currentTime: 0 };
           }
         },this.playAudio);
@@ -152,53 +152,75 @@ class AudioPlayer extends Component {
 
   render() {
     const { loop, currentTime, duration, playing, paused } = this.state;
-    const { current } = this.props;
+    const { loading, player, currentTrackIndex, playlist } = this.props.player;
     return (
-      <Segment className='player'>
-        <Grid padded='horizontally'>
-          <Grid.Row className='row'>
-            <Grid.Column computer={14} tablet={13} mobile={10}>
-              <ProgressBar
-              handleSeek={this.handleSeek}
-              currentTime={currentTime}
-              duration={duration}
-              />
-            </Grid.Column>
-            <Grid.Column textAlign='center' computer={2} tablet={3} mobile={6}>
-              <Duration currentTime={currentTime} duration={duration} />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row className='row' textAlign='center'>
-            <Grid.Column>
-              <Backward handlePrev={this.handleClick} />
-              <ShuffleRepeat handleClick={this.ShuffleRepeat} value={loop} />
-              <PlayPause playing={playing} handlePlayPause={this.handleClick} />
-              <Stop handleStop={this.handleClick}p />
-              <Forward handleNext={this.handleClick} />
-            </Grid.Column>
-          </Grid.Row>
-          <Divider />
-          <Grid.Row className='row' textAlign='center'>
-            <Grid.Column>
-              <Content artist={current ? current.artist : ''} title={current ? current.title : ''} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+      <Fragment>
         {
-          current &&
-          <audio
-            ref={audio => {this.audioElement = audio}}
-            src={current.src}
-            onLoadedMetadata={this.loadDuration}
-            onTimeUpdate={this.timer}
-            onEnded={() =>{
-              setTimeout(this.setShuffleRepeat, 2000)
-            }}
-          />
+          loading &&
+          <Dimmer active>
+            <Loader content='Chargement' />
+          </Dimmer>
         }
-      </Segment>
+        {
+          !loading && playlist.length > 0 &&
+          <Segment className='player'>
+            <Grid padded='horizontally'>
+              <Grid.Row className='row'>
+                <Grid.Column computer={14} tablet={14} mobile={12}>
+                  <ProgressBar
+                    handleSeek={this.handleSeek}
+                    value={Math.ceil((currentTime/duration) * 100)}
+                  />
+                </Grid.Column>
+                <Grid.Column textAlign='center' computer={2} tablet={2} mobile={4}>
+                  <Duration currentTime={currentTime} duration={duration} />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row className='row' textAlign='center'>
+                <Grid.Column>
+                  <Backward handlePrev={this.handleClick} />
+                  <ShuffleRepeat handleClick={this.shuffleRepeat} value={loop} />
+                  <PlayPause playing={playing} handlePlayPause={this.handleClick} />
+                  <Stop handleStop={this.handleClick}p />
+                  <Forward handleNext={this.handleClick} />
+                </Grid.Column>
+              </Grid.Row>
+              <Divider />
+              <Grid.Row className='row' textAlign='center'>
+                <Grid.Column>
+                  <Content
+                    artist={(playlist[currentTrackIndex] !== undefined && playlist[currentTrackIndex].fields.description) ? playlist[currentTrackIndex].fields.description : ''} title={(playlist[currentTrackIndex] !== undefined && playlist[currentTrackIndex].fields.title) ? playlist[currentTrackIndex].fields.title : ''}
+                  />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+            {
+              currentTrackIndex !== -1 && playlist[currentTrackIndex] !== undefined &&
+              <audio
+                ref={audio => {this.audioElement = audio}}
+                src={playlist[currentTrackIndex].fields.file.url}
+                onLoadedMetadata={this.loadDuration}
+                onTimeUpdate={this.timer}
+                onEnded={() =>{
+                  setTimeout(this.setShuffleRepeat, 2000)
+                }}
+              />
+            }
+          </Segment>
+        }
+      </Fragment>
     );
   }
 }
 
-export default AudioPlayer;
+AudioPlayer.propTypes = {
+  player: PropTypes.object.isRequired,
+  selectTrack: PropTypes.func.isRequired,
+  playlistLoad: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  player: state.player
+});
+
+export default connect(mapStateToProps, { selectTrack, playlistLoad })(AudioPlayer);

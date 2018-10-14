@@ -22,7 +22,7 @@ function formatTime(time) {
 }
 
 const Duration = ({currentTime, duration}) => (
-  <span>{formatTime(currentTime)} / {formatTime(duration)}</span>
+  <span style={{ color: 'black' }}>{formatTime(currentTime)} / {formatTime(duration)}</span>
 );
 
 export default Duration;
