@@ -5,10 +5,11 @@ import Moment from 'react-moment';
 import { Container, Segment, Divider, Header, Grid, Button, Icon, Card, Dimmer, Loader } from 'semantic-ui-react';
 
 class EventItem extends Component {
+
   toCapitalCaseFilter = d => d.replace(d.slice(0, 1), d.slice(0, 1).toUpperCase());
+
   render() {
     const { event } = this.props;
-    console.log(event);
     return (
       <Segment>
         <Grid celled>
@@ -18,7 +19,10 @@ class EventItem extends Component {
               <Grid.Column width={4} className='event-date'>
                 {
                   event.fields.event !== null && event.fields.event !== undefined &&
-                  <img src={event.fields.event.fields.file.url} className='event-date-background' alt='event'
+                  <img
+                    src={event.fields.event.fields.file.url}
+                    className='event-date-background'
+                    alt='event'
                   />
                 }
                 <Header textAlign='center' size='huge'>

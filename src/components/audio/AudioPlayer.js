@@ -45,13 +45,14 @@ class AudioPlayer extends Component {
   setShuffleRepeat = () => {
     let value = this.state.loop;
     let currentTrackIndex = this.props.player.currentTrackIndex;
+    // console.log(this.props.player.playlist.length);
     switch (value) {
       case 1:
-        this.props.selectTrack(Math.floor(Math.random() * this.props.playerplaylist.length));
+        this.props.selectTrack(Math.floor(Math.random() * this.props.player.playlist.length));
         this.playAudio();
         break;
       case 2:
-        if (currentTrackIndex === this.props.playerplaylist.length - 1) {
+        if (currentTrackIndex === this.props.player.playlist.length - 1) {
           this.props.selectTrack(0);
         }
         else {
@@ -166,13 +167,13 @@ class AudioPlayer extends Component {
           <Segment className='player'>
             <Grid padded='horizontally'>
               <Grid.Row className='row'>
-                <Grid.Column computer={14} tablet={14} mobile={12}>
+                <Grid.Column computer={14} tablet={12} mobile={11}>
                   <ProgressBar
                     handleSeek={this.handleSeek}
                     value={Math.ceil((currentTime/duration) * 100)}
                   />
                 </Grid.Column>
-                <Grid.Column textAlign='center' computer={2} tablet={2} mobile={4}>
+                <Grid.Column textAlign='center' computer={2} tablet={4} mobile={5}>
                   <Duration currentTime={currentTime} duration={duration} />
                 </Grid.Column>
               </Grid.Row>

@@ -4,6 +4,10 @@
 
 .player {
   display: block;
+  position: fixed !important;
+  bottom: 0;
+  z-index: 99;
+  width: 100%;
 }
 
 .row {

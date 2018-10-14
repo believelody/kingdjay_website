@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { BrowserRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
@@ -17,6 +17,7 @@ class App extends Component {
 
   render() {
     const { visible } = this.state;
+    const { player } = this.props.player;
     return (
       <BrowserRouter>
         <Fragment>
@@ -33,6 +34,7 @@ class App extends Component {
               {'rel':'stylesheet', 'href': 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'}
             ]}
           />
+          { player && <AudioPlayer /> }
           <div className="app">
             {
               window.screen.width >= 1024 && <Desktop />
@@ -40,7 +42,6 @@ class App extends Component {
             {
               window.screen.width < 1024 && <Mobile handleClick={this.handleButtonClick} visible={visible} />
             }
-            {this.props.player.player && <AudioPlayer />}
           </div>
         </Fragment>
       </BrowserRouter>

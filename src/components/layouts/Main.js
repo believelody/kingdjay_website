@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 import styled from 'styled-components';
 
-import { Home, About, Contact, Mixes, MixItem, Events, EventItem } from '../Export';
+import { Home, About, Contact, Mixes, Events } from '../Export';
 
 const MainStyle = styled.main`
   position: relative;
