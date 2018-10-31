@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as emailjs from 'emailjs-com';
+import mailgun from '../../mailgunCred';
+// import * as emailjs from 'emailjs-com';
 import axios from 'axios';
 
 import { contactLoad } from '../../actions/contactAction';
@@ -65,18 +66,20 @@ class Contact extends Component {
       ${text}
     `;
 
-    const template_params = {
-      "name": name,
-      "email": email,
-      "text": body
-    }
-    // axios(`https://api.elasticemail.com/v2/email/send?apikey=702e81bd-5ffe-4ee4-a12a-b9bedfebb068&subject=${subject}&from=${email}&fromName=${name}&to=[believelody@gmail.com]&bodyText=${body}`)
-    //   .then(({data}) => console.log(data))
-    //   .catch(err => console.log(err));
+    const data = {
+      from: `${name} ${email}`,
+      to: ['believelody@gmail.com'],
+      subject: `Nouveau message de ${name}`,
+      text: body
+    };
 
-    emailjs.send('mailgun', 'email_form', template_params)
-      .then(res => console.log('SUCCESS', res))
-      .catch(err => console.log('FAILED...', err));
+    mailgun.create(process.env.REACT_APP_MAILGUN_DOMAIN || 'your domain', data)
+      .then(msg => console.log(msg))
+      .catch(err => console.error(err));
+
+    // emailjs.send('mailgun', 'email_form', template_params)
+    //   .then(res => console.log('SUCCESS', res))
+    //   .catch(err => console.log('FAILED...', err));
 
     // Email.send(
     //   email,
@@ -92,7 +95,7 @@ class Contact extends Component {
   render() {
     const { name, email, request, date, text, options } = this.state;
     const { loading, contact } = this.props.contact;
-    console.log(process.env.REACT_APP_TEST);
+    console.log(process.env.REACT_APP_MAILGUN_API_KEY, process.env.REACT_APP_MAILGUN_DOMAIN);
     return (
       <Fragment>
         {
