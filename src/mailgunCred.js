@@ -1,3 +1,1 @@
-import mailgun from 'mailgun-js';
-
-export default mailgun.client({username: 'api', key: process.env.REACT_APP_MAILGUN_API_KEY || 'your mailgun api key here'});
+module.exports = require('mailgun-js')({apiKey: process.env.REACT_APP_MAILGUN_API_KEY, domain: process.env.REACT_APP_MAILGUN_DOMAIN});
