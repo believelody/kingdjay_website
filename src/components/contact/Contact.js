@@ -32,7 +32,7 @@ class Contact extends Component {
 
   componentDidMount() {
     this.props.contactLoad();
-    emailjs.init('user_ZAjgu13DldPppkW1OnXBx');
+    // emailjs.init('user_ZAjgu13DldPppkW1OnXBx');
   }
 
   componentWillReceiveProps(nextProps) {
