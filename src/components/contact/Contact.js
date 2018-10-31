@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import mailgun from '../../mailgunCred';
 // import * as emailjs from 'emailjs-com';
 import axios from 'axios';
 
@@ -73,9 +72,9 @@ class Contact extends Component {
       text: body
     };
 
-    mailgun.create(process.env.REACT_APP_MAILGUN_DOMAIN || 'your domain', data)
-      .then(msg => console.log(msg))
-      .catch(err => console.error(err));
+    // mailgun.create(process.env.REACT_APP_MAILGUN_DOMAIN || 'your domain', data)
+    //   .then(msg => console.log(msg))
+    //   .catch(err => console.error(err));
 
     // emailjs.send('mailgun', 'email_form', template_params)
     //   .then(res => console.log('SUCCESS', res))
