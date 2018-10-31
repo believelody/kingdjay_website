@@ -7,39 +7,6 @@ import { selectTrack, playlistLoad } from '../../actions/playerAction';
 import {AudioPlayer} from '../Export';
 import './Mixes.css';
 
-const playlist = [
-  {
-    src: "tracks/Burna Boy - Follow Me.mp3",
-    title: "Follow Me",
-    artist: "Burna Boy"
-  },
-  {
-    src: "tracks/Falz-_-Soft Work.mp3",
-    title: "Soft Work",
-    artist: "Falz"
-  },
-  {
-    src: "tracks/All Of Me Kizomba.mp3",
-    title: "All Of Me Kizomba",
-    artist: "J. Legend Cover"
-  },
-  {
-    src: "tracks/Bisa-Kdei-Fire-ft-Efya.mp3",
-    title: "Fire",
-    artist: "Bisa Kdei ft Efya"
-  },
-  {
-    src: "tracks/Hello - Adele (Slow Gospel African version) by Am-Bess.mp3",
-    title: "Hello",
-    artist: "Am-Bess Adele Cover"
-  },
-  {
-    src: "tracks/Diamond Platnumz ft Rayvanny – Salome.mp3",
-    title: "Salome",
-    artist: "Diamond Platnumz ft Rayvanny"
-  },
-];
-
 class Mixes extends Component {
   constructor(props) {
     super(props);
@@ -50,6 +17,14 @@ class Mixes extends Component {
 
  componentDidMount() {
    this.props.mixLoad();
+ }
+
+ componentWillReceiveProps(nextProps) {
+   if (nextProps.mix.mix !== null && nextProps.mix.mix !== undefined && nextProps.mix.mix.background !== undefined) {
+     // console.log(nextProps.event.event);
+     this.props.setBackgroundImage(nextProps.mix.mix.background.fields.file.url);
+
+   }
  }
 
   selectTrackNumber = (trackId) => {

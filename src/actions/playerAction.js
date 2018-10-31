@@ -1,5 +1,4 @@
 import * as types from '../types';
-import client from '../contentfulCredentials';
 
 export const playlistLoading = (isLoading = true) => ({
   type: types.LOADING_PLAYLIST,
