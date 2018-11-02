@@ -28,19 +28,21 @@
     "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^0.82.5",
     "serverless-http": "^1.8.0",
-    "styled-components": "^3.4.9"
+    "styled-components": "^3.4.9",
+    "webpack": "^3.11.0"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=dev npm-run-all --parallel start:app start:server",
+    "start": "cross-env NODE_ENV=dev npm-run-all --parallel start:app start:functions",
     "start:app": "react-scripts start",
-    "start:server": "netlify-lambda serve src/functions",
+    "start:functions": "netlify-lambda serve functions",
     "build": "npm-run-all --parallel build:**",
     "build:app": "react-scripts build",
-    "build:functions": "netlify-lambda build src/functions",
+    "build:functions": "netlify-lambda build functions",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "babel-loader": "^8.0.4",
     "cross-env": "^5.2.0",
     "netlify-lambda": "^1.0.2",
     "npm-run-all": "^4.1.3",

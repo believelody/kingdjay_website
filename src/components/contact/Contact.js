@@ -29,12 +29,10 @@ class Contact extends Component {
 
   componentDidMount() {
     this.props.contactLoad();
-    // emailjs.init('user_ZAjgu13DldPppkW1OnXBx');
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.contact.contact !== null && nextProps.contact.contact !== undefined && nextProps.contact.contact.background !== undefined) {
-      // console.log(nextProps.event.event);
+    if (nextProps.contact.contact && nextProps.contact.contact.background) {
       this.props.setBackgroundImage(nextProps.contact.contact.background.fields.file.url);
       if (nextProps.contact.contact.requests.length > 0) {
         this.setState({
@@ -52,7 +50,7 @@ class Contact extends Component {
 
   handleDate = date => this.setState({ date });
 
-  sendEmail = e => {
+  handleSubmit = e => {
     const { name, email, request, date, text } = this.state;
     e.preventDefault();
     // console.log({ name, email, request, date, text });
@@ -70,29 +68,13 @@ class Contact extends Component {
       text: body
     };
 
-    // mailgun.create(process.env.REACT_APP_MAILGUN_DOMAIN || 'your domain', data)
-    //   .then(msg => console.log(msg))
-    //   .catch(err => console.error(err));
-
-    // emailjs.send('mailgun', 'email_form', template_params)
-    //   .then(res => console.log('SUCCESS', res))
-    //   .catch(err => console.log('FAILED...', err));
-
-    // Email.send(
-    //   email,
-    //   'believelody@gmail.com',
-    //   subject,
-    //   body,
-    //   'smtp.elasticemail.com',
-    //   'believelody@gmail.com',
-    //   '702e81bd-5ffe-4ee4-a12a-b9bedfebb068'
-    // );
+    this.props.sendEmail(data);
   }
 
   render() {
     const { name, email, request, date, text, options } = this.state;
     const { loading, contact } = this.props.contact;
-    console.log(process.env.REACT_APP_MAILGUN_API_KEY, process.env.REACT_APP_MAILGUN_DOMAIN);
+    // console.log(process.env.REACT_APP_MAILGUN_API_KEY, process.env.REACT_APP_MAILGUN_DOMAIN);
     return (
       <Fragment>
         {
@@ -107,7 +89,7 @@ class Contact extends Component {
             <Header size='large' textAlign='center' style={{color: 'white'}}>Contact</Header>
             <Header size='medium' textAlign='center' style={{color: 'white'}}>Une interrogation? Laissez moi un message et je reviendrai vers vous</Header>
             <Segment style={{padding: '3%'}}>
-              <Form id='contactForm' size='large'>
+              <Form onSubmit={this.handleSubmit} size='large'>
                 <Form.Group>
                   <Form.Field required name='name' value={name} onChange={this.handleChange} width={8} control={Input} label='Prénom' placeholder='Prénom' />
                   <Form.Field required name='email' value={email} onChange={this.handleChange} width={8} control={Input} label='Email' placeholder='johndoe@yahoo.fr' />

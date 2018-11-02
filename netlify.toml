@@ -1,7 +1,7 @@
 [build]
   # This will be run the site build
-  Command = "npm run build"
+  command = "npm run build"
   # This is the directory is publishing to netlify's CDN
-  Publish = "build"
+  publish = "build"
   # functions build directory
-  Functions = "functions"
+  functions = "functions-build"

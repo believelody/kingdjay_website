@@ -26,7 +26,8 @@ export const contactLoad = () => dispatch => {
     });
 }
 
-export const sendEmail = () =>
-  axios('/.netlify/functions/send-email')
-    .then(res => console.log(res))
+export const sendEmail = data => dispatch => {
+  axios.post('/.netlify/functions/send-email', data)
+    .then(({data}) => console.log(data))
     .catch(err => console.error(err))
+}
