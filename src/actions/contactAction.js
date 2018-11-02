@@ -1,5 +1,6 @@
 import * as types from '../types';
 import client from '../contentfulCredentials';
+import axios from 'axios';
 
 export const contactLoading = (isLoading = true) => ({
   type: types.LOADING_CONTACT,
@@ -24,3 +25,8 @@ export const contactLoad = () => dispatch => {
       dispatch(contactLoading(false));
     });
 }
+
+export const sendEmail = () =>
+  axios('/.netlify/functions/send-email')
+    .then(res => console.log(res))
+    .catch(err => console.error(err))

@@ -1,10 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import * as emailjs from 'emailjs-com';
-import axios from 'axios';
 
-import { contactLoad } from '../../actions/contactAction';
+import { contactLoad, sendEmail } from '../../actions/contactAction';
 import { Container, Form, Button, Header, Input, Select, TextArea, Segment, Label, Dimmer, Loader } from 'semantic-ui-react';
 import ModernDatepicker from 'react-modern-datepicker';
 import moment from 'moment';
@@ -138,11 +136,13 @@ class Contact extends Component {
 }
 
 Contact.propTypes = {
-  contact: PropTypes.object.isRequired
+  contact: PropTypes.object.isRequired,
+  contactLoad: PropTypes.func.isRequired,
+  sendEmail: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   contact: state.contact
-})
+});
 
-export default connect(mapStateToProps, { contactLoad })(Contact);
+export default connect(mapStateToProps, { contactLoad, sendEmail })(Contact);
