@@ -3,7 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { contactLoad, sendEmail } from '../../actions/contactAction';
-import { Container, Form, Button, Header, Input, Select, TextArea, Segment, Label, Dimmer, Loader } from 'semantic-ui-react';
+import {
+  Container,
+  Form,
+  Button,
+  Header,
+  Input,
+  Select,
+  TextArea,
+  Segment,
+  Label,
+  Dimmer,
+  Loader,
+  Message
+} from 'semantic-ui-react';
 import ModernDatepicker from 'react-modern-datepicker';
 import moment from 'moment';
 
@@ -75,7 +88,7 @@ class Contact extends Component {
 
   render() {
     const { name, email, request, date, text, options } = this.state;
-    const { loading, contact } = this.props.contact;
+    const { loading, contact, status } = this.props.contact;
     return (
       <Fragment>
         {
@@ -90,7 +103,7 @@ class Contact extends Component {
             <Header size='large' textAlign='center' style={{color: 'white'}}>Contact</Header>
             <Header size='medium' textAlign='center' style={{color: 'white'}}>Une interrogation? Laissez moi un message et je reviendrai vers vous</Header>
             <Segment style={{padding: '3%'}}>
-              <Form onSubmit={this.handleSubmit} size='large'>
+              <Form loading={loading} onSubmit={this.handleSubmit} size='large'>
                 <Form.Group>
                   <Form.Field required name='name' value={name} onChange={this.handleChange} width={8} control={Input} label='Prénom' placeholder='Prénom' />
                   <Form.Field required name='email' value={email} onChange={this.handleChange} width={8} control={Input} label='Email' placeholder='johndoe@yahoo.fr' />
@@ -108,6 +121,22 @@ class Contact extends Component {
                   </Form.Field>
                 </Form.Group>
                 <Form.Field required name='text' value={text} onChange={this.handleChange} control={TextArea} label='Texte' placeholder='Dites moi tout...' />
+                {
+                  !loading && status === 200 &&
+                  <Message
+                    success
+                    header='Message envoyé'
+                    content='Merci pour votre message. Nous vous rappellons après avoir étudier votre demande'
+                  />
+                }
+                {
+                  !loading && status === 404 &&
+                  <Message
+                    error
+                    header='Message non envoyé'
+                    content='Désolé, votre requête n\'a pu nous être transmis. Veuillez reessayer ultérieurement'
+                  />
+                }
                 <Form.Field control={Button} color='linkedin'>Envoyer</Form.Field>
               </Form>
             </Segment>

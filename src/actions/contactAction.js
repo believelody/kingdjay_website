@@ -27,7 +27,14 @@ export const contactLoad = () => dispatch => {
 }
 
 export const sendEmail = data => dispatch => {
+  dispatch(contactLoading());
   axios.post('/.netlify/functions/send-email', data)
-    .then((res) => console.log(res))
-    .catch(err => console.error(err))
+    .then(({status}) => dispatch({
+      type: types.CONTACT_SEND_FORM,
+      payload: status
+    }))
+    .catch(err => {
+      console.error(err);
+      dispatch(contactLoading(false));
+    })
 }

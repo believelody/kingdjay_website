@@ -30,8 +30,7 @@ exports.handler = (event, context, callback) => {
     }
     else {
       callback(null, {
-        statusCode: 200,
-        body: 'Nous avons bien reçu votre demande. Nous vous contacterons dans les plus bref délais'
+        statusCode: 200
       });
     }
   });

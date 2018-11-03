@@ -3,6 +3,7 @@ import * as types from '../types';
 const initialState = {
   loading: false,
   contact: null
+  status: null
 }
 
 export default (state = initialState, { type, payload}) => {
@@ -17,6 +18,12 @@ export default (state = initialState, { type, payload}) => {
         ...state,
         loading: false,
         contact: payload
+      }
+    case types.CONTACT_SEND_FORM:
+      return {
+        ...state,
+        loading: false,
+        status: payload
       }
     default:
       return state;
