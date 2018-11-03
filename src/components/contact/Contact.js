@@ -134,7 +134,7 @@ class Contact extends Component {
                   <Message
                     error
                     header='Message non envoyé'
-                    content='Désolé, votre requête n\'a pu nous être transmis. Veuillez reessayer ultérieurement'
+                    content="Désolé, votre requête n'a pu nous être transmis. Veuillez réessayer ultérieurement"
                   />
                 }
                 <Form.Field control={Button} color='linkedin'>Envoyer</Form.Field>

@@ -16,13 +16,11 @@ export const playlistLoad = playlist => dispatch => {
 }
 
 export const openPlayer = () => ({
-  type: types.OPEN_PLAYER,
-  payload: true
+  type: types.OPEN_PLAYER
 });
 
 export const closePlayer = () => dispatch => ({
-  type: types.CLOSE_PLAYER,
-  payload: false
+  type: types.CLOSE_PLAYER
 });
 
 export const selectTrack = index => dispatch => {
