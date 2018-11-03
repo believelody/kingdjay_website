@@ -2,7 +2,7 @@ import * as types from '../types';
 
 const initialState = {
   loading: false,
-  contact: null
+  contact: null,
   status: null
 }
 
