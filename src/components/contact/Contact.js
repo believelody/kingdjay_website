@@ -36,7 +36,8 @@ class Contact extends Component {
       request: '',
       date: moment(),
       text: '',
-      options: []
+      options: [],
+      visible: false
     };
   }
 
@@ -57,13 +58,17 @@ class Contact extends Component {
         });
       }
     }
+
+    if (nextProps.contact.status) {
+      this.setState({ visible: true })
+    }
   }
 
   handleChange = (e, {name, value}) => this.setState({ [name]: value });
 
   handleDate = date => this.setState({ date });
 
-  handleDismiss = () => this.setState({ visible: false });
+  handleDismiss = () => this.setState({ visible: false }, this.props.clearMessage);
 
   handleSubmit = e => {
     const { name, email, request, date, text } = this.state;
@@ -89,9 +94,9 @@ class Contact extends Component {
   }
 
   render() {
-    const { name, email, request, date, text, options } = this.state;
+    const { name, email, request, date, text, options, visible } = this.state;
     const { loading, contact, status, submissionPending } = this.props.contact;
-    console.log(status, submissionPending);
+    console.log(status, submissionPending, visible);
     return (
       <Fragment>
         {
@@ -125,21 +130,21 @@ class Contact extends Component {
                 </Form.Group>
                 <Form.Field required name='text' value={text} onChange={this.handleChange} control={TextArea} label='Texte' placeholder='Dites moi tout...' />
                 {
-                  status === 200 && submissionPending &&
+                  status === 200 && visible &&
                   <Message
                     success
                     header='Message envoyé'
                     content='Merci pour votre message. Nous vous rappellons après avoir étudier votre demande'
-                    onDismiss={this.props.clearMessage}
+                    onDismiss={this.handleDismiss}
                   />
                 }
                 {
-                  status === 404 && submissionPending &&
+                  status === 404 && visible &&
                   <Message
                     error
                     header='Message non envoyé'
                     content="Désolé, votre requête n'a pu nous être transmis. Veuillez réessayer ultérieurement"
-                    onDismiss={this.props.clearMessage}
+                    onDismiss={this.handleDismiss}
                   />
                 }
                 <Form.Field control={Button} color='linkedin'>Envoyer</Form.Field>
