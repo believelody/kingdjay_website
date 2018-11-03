@@ -47,6 +47,6 @@ export const sendEmail = data => dispatch => {
 
 export const clearMessage = () => dispatch => {
   dispatch({
-    type: types.CLEAR_MESSAGE
+    type: types.CONTACT_CLEAR_MESSAGE
   });
 }
