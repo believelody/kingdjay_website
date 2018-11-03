@@ -129,6 +129,8 @@ class Contact extends Component {
                   </Form.Field>
                 </Form.Group>
                 <Form.Field required name='text' value={text} onChange={this.handleChange} control={TextArea} label='Texte' placeholder='Dites moi tout...' />
+                { status === 200 && console.log('Message envoyé') }
+                { status === 404 && console.log('Message non envoyé') }
                 {
                   status === 200 && visible &&
                   <Message
