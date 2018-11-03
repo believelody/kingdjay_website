@@ -3,7 +3,7 @@ const config = require('../config/mailer');
 
 module.exports = nodemailer.createTransport({
   host: 'smtp.mailgun.org',
-  prot: 2525,
+  prot: 587,
   secure: false,
   auth: {
     user: config.MAILGUN_USER,
