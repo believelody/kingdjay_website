@@ -33,7 +33,7 @@ export const contactLoad = () => dispatch => {
 }
 
 export const sendEmail = data => dispatch => {
-  dispatch(submissionPending());
+  dispatch(contactSubmissionPending());
   axios.post('/.netlify/functions/send-email', data)
     .then(({status}) => dispatch({
       type: types.CONTACT_SEND_FORM,
@@ -41,7 +41,7 @@ export const sendEmail = data => dispatch => {
     }))
     .catch(err => {
       console.error(err);
-      dispatch(submissionPending(false));
+      dispatch(contactSubmissionPending(false));
     })
 }
 
