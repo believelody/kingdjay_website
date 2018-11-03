@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { contactLoad, sendEmail } from '../../actions/contactAction';
+import { contactLoad, sendEmail, clearMessage } from '../../actions/contactAction';
 import {
   Container,
   Form,
