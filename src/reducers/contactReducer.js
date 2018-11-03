@@ -29,12 +29,12 @@ export default (state = initialState, { type, payload}) => {
       console.log(payload);
       return {
         ...state,
-        submissionPending: false,
         status: payload
       }
     case types.CONTACT_CLEAR_MESSAGE:
       return {
         ...state,
+        submissionPending: false,
         status: null
       }
     default:
