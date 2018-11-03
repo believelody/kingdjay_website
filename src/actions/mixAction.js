@@ -1,5 +1,5 @@
 import * as types from '../types';
-import client from '../contentfulCredentials';
+import client from '../../misc/contentful';
 
 export const mixLoading = (isLoading = true) => ({
   type: types.LOADING_MIX,

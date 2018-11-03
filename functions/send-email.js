@@ -2,6 +2,7 @@ import serverless from "serverless-http"
 import express from "express"
 import cors from "cors"
 import bodyParser from "body-parser"
+import mailer from "../misc/mailer"
 
 const functionName = 'send-email'
 const app = express()
@@ -18,10 +19,19 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // });
 
 exports.handler = (event, context, callback) => {
-  console.log('success', event);
-
-  callback(null, {
-    statusCode: 200,
-    body: event.body
-  })
+  const { from, to, subject, replyTo, html } = JSON.parse(event.body);
+  mailer.sendMail({ from, to, subject, replyTo, html }, (error, info) => {
+    if (error) {
+      console.log(error);
+      callback(null, {
+        statusCode: 404
+      });
+    }
+    else {
+      callback(null, {
+        statusCode: 200,
+        body: 'Nous avons bien reçu votre demande. Nous vous contacterons dans les plus bref délais'
+      });
+    }
+  });
 }

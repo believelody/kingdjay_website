@@ -1,5 +1,5 @@
 import * as types from '../types';
-import client from '../contentfulCredentials';
+import client from '../../misc/contentful';
 import axios from 'axios';
 
 export const contactLoading = (isLoading = true) => ({
@@ -28,6 +28,6 @@ export const contactLoad = () => dispatch => {
 
 export const sendEmail = data => dispatch => {
   axios.post('/.netlify/functions/send-email', data)
-    .then(({data}) => console.log(data))
+    .then((res) => console.log(res))
     .catch(err => console.error(err))
 }

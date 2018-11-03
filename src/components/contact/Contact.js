@@ -53,19 +53,21 @@ class Contact extends Component {
   handleSubmit = e => {
     const { name, email, request, date, text } = this.state;
     e.preventDefault();
-    // console.log({ name, email, request, date, text });
-    // let subject = `Nouveau message de ${name}`;
     let body = `
-      Requête: ${request}
-      Date: ${typeof date === 'string' ? date : 'Non mentionné'}
-      ${text}
+      <h3>Requête: ${request}</h3>
+      <br />
+      <br />
+      <i>Date: ${typeof date === 'string' ? date : 'Non mentionné'}</i>
+      <br />
+      <p>${text}</p>
     `;
 
     const data = {
-      from: `${name} ${email}`,
+      from: name,
       to: ['believelody@gmail.com'],
       subject: `Nouveau message de ${name}`,
-      text: body
+      replyTo: email,
+      html: body
     };
 
     this.props.sendEmail(data);
@@ -74,7 +76,6 @@ class Contact extends Component {
   render() {
     const { name, email, request, date, text, options } = this.state;
     const { loading, contact } = this.props.contact;
-    // console.log(process.env.REACT_APP_MAILGUN_API_KEY, process.env.REACT_APP_MAILGUN_DOMAIN);
     return (
       <Fragment>
         {

@@ -9,6 +9,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.4",
     "moment": "^2.22.2",
+    "nodemailer": "^4.6.8",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
