@@ -1,5 +1,5 @@
 import * as types from '../types';
-import client from '../../misc/contentful';
+import client from '../contentfulCredentials';
 import axios from 'axios';
 
 export const contactLoading = (isLoading = true) => ({

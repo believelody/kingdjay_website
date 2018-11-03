@@ -1,5 +1,5 @@
 import * as types from '../types';
-import client from '../../misc/contentful';
+import client from '../contentfulCredentials';
 
 export const aboutLoading = (isLoading = true) => ({
   type: types.LOADING_ABOUT,
