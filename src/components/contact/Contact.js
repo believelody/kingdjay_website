@@ -129,24 +129,24 @@ class Contact extends Component {
                   </Form.Field>
                 </Form.Group>
                 <Form.Field required name='text' value={text} onChange={this.handleChange} control={TextArea} label='Texte' placeholder='Dites moi tout...' />
-                { status === 200 && console.log('Message envoyé') }
-                { status === 404 && console.log('Message non envoyé') }
                 {
-                  status === 200 && visible &&
+                  status === 200 &&
                   <Message
                     success
                     header='Message envoyé'
                     content='Merci pour votre message. Nous vous rappellons après avoir étudier votre demande'
                     onDismiss={this.handleDismiss}
+                    visible={visible}
                   />
                 }
                 {
-                  status === 404 && visible &&
+                  status === 404 &&
                   <Message
                     error
                     header='Message non envoyé'
                     content="Désolé, votre requête n'a pu nous être transmis. Veuillez réessayer ultérieurement"
                     onDismiss={this.handleDismiss}
+                    visible={visible}
                   />
                 }
                 <Form.Field control={Button} color='linkedin'>Envoyer</Form.Field>
