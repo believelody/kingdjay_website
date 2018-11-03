@@ -36,8 +36,7 @@ class Contact extends Component {
       request: '',
       date: moment(),
       text: '',
-      options: [],
-      visible: false
+      options: []
     };
   }
 
@@ -57,10 +56,6 @@ class Contact extends Component {
           }))
         });
       }
-    }
-
-    if (nextProps.contact.status) {
-      this.setState({ visible: true });
     }
   }
 
@@ -94,8 +89,9 @@ class Contact extends Component {
   }
 
   render() {
-    const { name, email, request, date, text, options, visible } = this.state;
-    const { loading, contact, status } = this.props.contact;
+    const { name, email, request, date, text, options } = this.state;
+    const { loading, contact, status, submissionPending } = this.props.contact;
+    console.log(status, submissionPending);
     return (
       <Fragment>
         {
@@ -110,7 +106,7 @@ class Contact extends Component {
             <Header size='large' textAlign='center' style={{color: 'white'}}>Contact</Header>
             <Header size='medium' textAlign='center' style={{color: 'white'}}>Une interrogation? Laissez moi un message et je reviendrai vers vous</Header>
             <Segment style={{padding: '3%'}}>
-              <Form loading={loading} onSubmit={this.handleSubmit} size='large'>
+              <Form loading={submissionPending} onSubmit={this.handleSubmit} size='large'>
                 <Form.Group>
                   <Form.Field required name='name' value={name} onChange={this.handleChange} width={8} control={Input} label='Prénom' placeholder='Prénom' />
                   <Form.Field required name='email' value={email} onChange={this.handleChange} width={8} control={Input} label='Email' placeholder='johndoe@yahoo.fr' />
@@ -129,21 +125,21 @@ class Contact extends Component {
                 </Form.Group>
                 <Form.Field required name='text' value={text} onChange={this.handleChange} control={TextArea} label='Texte' placeholder='Dites moi tout...' />
                 {
-                  !loading && status === 200 && visible &&
+                  status === 200 && submissionPending &&
                   <Message
                     success
                     header='Message envoyé'
                     content='Merci pour votre message. Nous vous rappellons après avoir étudier votre demande'
-                    onDismiss={this.handleDismiss}
+                    onDismiss={this.props.clearMessage}
                   />
                 }
                 {
-                  !loading && status === 404 && visible &&
+                  status === 404 && submissionPending &&
                   <Message
                     error
                     header='Message non envoyé'
                     content="Désolé, votre requête n'a pu nous être transmis. Veuillez réessayer ultérieurement"
-                    onDismiss={this.handleDismiss}
+                    onDismiss={this.props.clearMessage}
                   />
                 }
                 <Form.Field control={Button} color='linkedin'>Envoyer</Form.Field>
@@ -159,11 +155,12 @@ class Contact extends Component {
 Contact.propTypes = {
   contact: PropTypes.object.isRequired,
   contactLoad: PropTypes.func.isRequired,
-  sendEmail: PropTypes.func.isRequired
+  sendEmail: PropTypes.func.isRequired,
+  clearMessage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   contact: state.contact
 });
 
-export default connect(mapStateToProps, { contactLoad, sendEmail })(Contact);
+export default connect(mapStateToProps, { contactLoad, sendEmail, clearMessage })(Contact);
