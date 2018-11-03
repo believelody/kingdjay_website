@@ -11,12 +11,12 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-// const routerBasePath = process.env.NODE_ENV === 'dev' ? `/${functionName}` : `/.netlify/functions/${functionName}`
-//
-// app.get(routerBasePath, (req, res) => {
-//   console.log('success');
-//   res.json({ msg: 'test' })
-// });
+const routerBasePath = process.env.NODE_ENV === 'dev' ? `/${functionName}` : `/.netlify/functions/${functionName}`
+
+app.get(routerBasePath, (req, res) => {
+  console.log('success');
+  res.json({ msg: 'test' })
+});
 
 exports.handler = (event, context, callback) => {
   const { from, to, subject, replyTo, html } = JSON.parse(event.body);
