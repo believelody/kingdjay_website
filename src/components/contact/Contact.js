@@ -91,12 +91,17 @@ class Contact extends Component {
     };
 
     this.props.sendEmail(data);
+    this.setState({
+      name: '',
+      email: '',
+      request: '',
+      text: ''
+    });
   }
 
   render() {
     const { name, email, request, date, text, options, visible } = this.state;
     const { loading, contact, status, submissionPending } = this.props.contact;
-    console.log(status, submissionPending, visible);
     return (
       <Fragment>
         {
