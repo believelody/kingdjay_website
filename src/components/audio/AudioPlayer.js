@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectTrack, playlistLoad, closePlayer } from '../../actions/playerAction';
-import { Segment, Grid, Divider, Dimmer, Loader, Message } from 'semantic-ui-react';
+import { Segment, Grid, Divider, Dimmer, Loader, Message, Button } from 'semantic-ui-react';
 import Backward from './Backward';
 import Content from './Content';
 import Duration from './Duration';
@@ -11,6 +11,7 @@ import PlayPause from './PlayPause';
 import ProgressBar from './ProgressBar';
 import Stop from './Stop';
 import ShuffleRepeat from './ShuffleRepeat';
+import TrackList from './TrackList';
 
 import './AudioPlayer.css';
 
@@ -22,7 +23,8 @@ class AudioPlayer extends Component {
       playing: false,
       paused: false,
       currentTime: 0,
-      duration: 0
+      duration: 0,
+      showMenu: false
     };
   }
 
@@ -152,12 +154,14 @@ class AudioPlayer extends Component {
   }
 
   handleDismiss = () => {
-    this.stopAudio();
+    // this.stopAudio();
     this.props.closePlayer();
   }
 
+  handleShowMenu = () => this.setState({ showMenu: !this.state.showMenu });
+
   render() {
-    const { loop, currentTime, duration, playing, paused } = this.state;
+    const { loop, currentTime, duration, playing, paused, showMenu } = this.state;
     const { loading, player, currentTrackIndex, playlist } = this.props.player;
     return (
       <Fragment>
@@ -183,7 +187,7 @@ class AudioPlayer extends Component {
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row className='row' textAlign='center'>
-                <Grid.Column>
+                <Grid.Column style={{ position: 'relative' }}>
                   <Backward handlePrev={this.handleClick} />
                   <ShuffleRepeat handleClick={this.shuffleRepeat} value={loop} />
                   <PlayPause playing={playing} handlePlayPause={this.handleClick} />
@@ -194,8 +198,16 @@ class AudioPlayer extends Component {
               <Divider />
               <Grid.Row className='row' textAlign='center'>
                 <Grid.Column>
+                  <Button
+                  inverted
+                  color='green'
+                  icon={showMenu ? 'minus' : 'list'}
+                  onClick={this.handleShowMenu}
+                  style={{ float: 'right', margin: 0 }}
+                  />
                   <Content
-                    artist={(playlist[currentTrackIndex] !== undefined && playlist[currentTrackIndex].fields.description) ? playlist[currentTrackIndex].fields.description : ''} title={(playlist[currentTrackIndex] !== undefined && playlist[currentTrackIndex].fields.title) ? playlist[currentTrackIndex].fields.title : ''}
+                    artist={(playlist[currentTrackIndex] && playlist[currentTrackIndex].fields.description) ? playlist[currentTrackIndex].fields.description : ''}
+                    title={(playlist[currentTrackIndex] && playlist[currentTrackIndex].fields.title) ? playlist[currentTrackIndex].fields.title : ''}
                   />
                 </Grid.Column>
               </Grid.Row>
@@ -212,6 +224,7 @@ class AudioPlayer extends Component {
                 }}
               />
             }
+            <TrackList currentTrackIndex={currentTrackIndex} showMenu={showMenu} playlist={playlist} />
           </Message>
         }
       </Fragment>
