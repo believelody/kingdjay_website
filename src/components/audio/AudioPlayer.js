@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectTrack, playlistLoad } from '../../actions/playerAction';
-import { Segment, Grid, Divider, Dimmer, Loader } from 'semantic-ui-react';
+import { selectTrack, playlistLoad, closePlayer } from '../../actions/playerAction';
+import { Segment, Grid, Divider, Dimmer, Loader, Message } from 'semantic-ui-react';
 import Backward from './Backward';
 import Content from './Content';
 import Duration from './Duration';
@@ -151,6 +151,11 @@ class AudioPlayer extends Component {
     }
   }
 
+  handleDismiss = () => {
+    this.stopAudio();
+    this.props.closePlayer();
+  }
+
   render() {
     const { loop, currentTime, duration, playing, paused } = this.state;
     const { loading, player, currentTrackIndex, playlist } = this.props.player;
@@ -164,7 +169,7 @@ class AudioPlayer extends Component {
         }
         {
           !loading && playlist.length > 0 &&
-          <Segment className='player'>
+          <Message visible={player} size='small' onDismiss={this.handleDismiss} className='player'>
             <Grid padded='horizontally'>
               <Grid.Row className='row'>
                 <Grid.Column computer={14} tablet={12} mobile={11}>
@@ -207,7 +212,7 @@ class AudioPlayer extends Component {
                 }}
               />
             }
-          </Segment>
+          </Message>
         }
       </Fragment>
     );
@@ -217,11 +222,12 @@ class AudioPlayer extends Component {
 AudioPlayer.propTypes = {
   player: PropTypes.object.isRequired,
   selectTrack: PropTypes.func.isRequired,
-  playlistLoad: PropTypes.func.isRequired
+  playlistLoad: PropTypes.func.isRequired,
+  closePlayer: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   player: state.player
 });
 
-export default connect(mapStateToProps, { selectTrack, playlistLoad })(AudioPlayer);
+export default connect(mapStateToProps, { selectTrack, playlistLoad, closePlayer })(AudioPlayer);

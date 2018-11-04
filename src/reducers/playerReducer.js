@@ -28,7 +28,8 @@ export default (state = initialState, { type, payload}) => {
     case types.CLOSE_PLAYER:
       return {
         ...state,
-        player: false
+        player: false,
+        currentTrackIndex: -1
       }
     case types.SELECT_TRACK:
       return {

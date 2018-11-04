@@ -19,7 +19,7 @@ export const openPlayer = () => ({
   type: types.OPEN_PLAYER
 });
 
-export const closePlayer = () => dispatch => ({
+export const closePlayer = () => ({
   type: types.CLOSE_PLAYER
 });
 
